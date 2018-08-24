@@ -1,0 +1,18 @@
+{% if deptmt.dept_full %}
+    <h1> {{ deptmt.dept_full }} ({{ deptmt.dept }}) </h1>
+{% else %}
+    <h1> {{ deptmt.dept }} </h1>
+{% endif %}
+
+{% if deptmt and deptmt.courseinfo_set.values.count > 0 %}
+    <ul>
+    {% for course in deptmt.courseinfo_set.all %}
+        <li> {{ deptmt.dept }} {{ course.crs_num }} --
+        <a href=
+        "{% url 'courses:visual_chooser' deptmt.dept course.crs_num %}">
+        {{ course.crs_name }} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p> No courses available.</p>
+{% endif %}    

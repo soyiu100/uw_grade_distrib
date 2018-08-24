@@ -1,0 +1,25 @@
+{% load course_oper %}
+
+<h1> {{ course.crs_name }} -- Grade Distributions for 
+{{ course.dept }} {{ course.crs_num }}</h1>
+
+{% if message %} {{ message }} {% endif %}
+
+{% if "1" in course.crs_avail %}
+    <form action="{% url 'courses:selection' slug_dept course.crs_num %}" method="post">
+    {% csrf_token %} 
+    {% for year in years %}
+        <input type="radio" name="year" id="year{{ forloop.counter }}" value="{{ year }}" />
+        <label for="year{{ forloop.counter }}">{% convert_text year %}</label>
+    {% endfor %}
+    </br>
+    <input type="submit" value="Create Visualization" />
+    </form>
+{% else %}
+    <p> You got beaned. This course hasn't even been taught yet. </br>
+    Either that, or a nonexistent class is just here. I mean, how is a 
+    class existing with no grade distributions? </br>
+    Or maybe the department and/or course instructors are too scroogey to let out grade distributions. </br>
+    Who knows. </br> </br>
+    Either way, you've played yourself rather nicely. </p>
+{% endif %}

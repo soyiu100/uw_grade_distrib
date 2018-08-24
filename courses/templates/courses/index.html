@@ -1,0 +1,10 @@
+<h1> Choose a department: </h1>
+{% if dept_list %}
+    <ul>
+    {% for dp in dept_list %}
+        <li><a href="{% url 'courses:department' dp %}">{{ dp }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p> Oops, something went wrong. Heck, there should be classes here.</p>
+{% endif %}
